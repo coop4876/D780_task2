@@ -1,10 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 
 app = FastAPI()
-
-# TODO Add inventory check (maybe in orch)
 
 # carts dict exist in memory for demo purposes
 carts = {}
@@ -37,4 +35,4 @@ async def get_cart(user_id: int):
     if user_id in carts:
         return carts[user_id]
     else:
-        return {"message": f"User {user_id} not found"}
+        raise HTTPException(status_code=404, detail=f"User '{user_id}' not found")
