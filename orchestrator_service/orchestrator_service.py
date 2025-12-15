@@ -44,6 +44,9 @@ async def process_payment(item: str, quantity: int, method: str, amount: float):
     async with httpx.AsyncClient() as client:
         response = await client.post(PAYMENT_URL, json=payload, timeout=5.0)
 
+    if response.status_code == 404:
+        raise HTTPException(status_code=404, detail=f"Invalid payment type: {method}")
+
     if response.status_code != 200:
         raise HTTPException(status_code=502, detail="Payment service failed")
 
@@ -69,3 +72,15 @@ async def add_to_cart(user_id: int, item: str, quantity: int):
 
     await add_to_inventory(item, -quantity)
     return response.json()
+
+
+@app.post("/add_test_data")
+async def add_test_data():
+    await add_to_inventory("Laptop", 5)
+    await add_to_inventory("Phone", 10)
+
+    await add_to_cart(1234, "Laptop", 2)
+    await add_to_cart(1234, "Phone", 1)
+
+    await process_payment("Laptop", 2, "credit_card", 215.30)
+    await process_payment("Phone", 1, "pay_pal", 197.50)

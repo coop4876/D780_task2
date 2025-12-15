@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 
@@ -46,4 +46,6 @@ async def checkout(checkout_details: CheckoutDetails):
     if checkout_details.method == "pay_pal":
         payment = PayPalPayment()
         return payment.pay(checkout_details.amount)
-    return {"message": "Invalid payment type"}
+    raise HTTPException(
+        status_code=404, detail=f"Invalid payment type: {checkout_details.method}"
+    )
