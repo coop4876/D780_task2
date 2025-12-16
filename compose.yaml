@@ -15,3 +15,8 @@ services:
     build: ./cart_service
     ports:
       - "5002:5000"
+
+  orchestrator:
+    build: ./orchestrator_service
+    ports:
+      - "5003:5000"

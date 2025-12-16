@@ -5,9 +5,15 @@ import httpx
 
 app = FastAPI()
 
-PAYMENT_URL = "http://localhost:5000/checkout"
-CART_URL = "http://localhost:5002/cart/"
-INVENTORY_URL = "http://localhost:5001/inventory/"
+# # fastapi dev URLs
+# PAYMENT_URL = "http://localhost:5000/checkout"
+# CART_URL = "http://localhost:5002/cart/"
+# INVENTORY_URL = "http://localhost:5001/inventory/"
+
+# Docker DNS resolved URLs
+PAYMENT_URL = "http://payment:5000/checkout"
+CART_URL = "http://cart:5000/cart/"
+INVENTORY_URL = "http://inventory:5000/inventory/"
 
 
 @app.put("/inventory/add")
