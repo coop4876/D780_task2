@@ -80,13 +80,14 @@ async def add_to_cart(user_id: int, item: str, quantity: int):
     return response.json()
 
 
-@app.post("/add_test_data")
-async def add_test_data():
-    await add_to_inventory("Laptop", 5)
-    await add_to_inventory("Phone", 10)
+# used to add items during development for testing
+# @app.post("/add_test_data")
+# async def add_test_data():
+#     await add_to_inventory("Laptop", 5)
+#     await add_to_inventory("Phone", 10)
 
-    await add_to_cart(1234, "Laptop", 2)
-    await add_to_cart(1234, "Phone", 1)
+#     await add_to_cart(1234, "Laptop", 2)
+#     await add_to_cart(1234, "Phone", 1)
 
-    await process_payment("Laptop", 2, "credit_card", 215.30)
-    await process_payment("Phone", 1, "pay_pal", 197.50)
+#     await process_payment("Laptop", 2, "credit_card", 215.30)
+#     await process_payment("Phone", 1, "pay_pal", 197.50)
